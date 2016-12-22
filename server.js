@@ -4,14 +4,14 @@ var send = require('koa-send')
 
 var app = new Koa()
 
-function getWordlist () {
-  return fetch('https://www.eff.org/files/2016/07/18/eff_large_wordlist.txt')
-    .then(response => response.text())
+async function getWordlist () {
+  var response = await fetch('https://www.eff.org/files/2016/07/18/eff_large_wordlist.txt')
+  return response.text()
 }
 
-app.use(context => {
+app.use(async context => {
   if (context.path === '/wordlist') {
-    return getWordlist().then(result => { context.body = result })
+    context.body = await getWordlist()
   } else {
     return send(context, 'index.html')
   }
