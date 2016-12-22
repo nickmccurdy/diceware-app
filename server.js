@@ -13,7 +13,7 @@ app.use(async context => {
   if (context.path === '/wordlist') {
     context.body = await getWordlist()
   } else {
-    return send(context, 'index.html')
+    await send(context, 'index.html')
   }
 })
 
